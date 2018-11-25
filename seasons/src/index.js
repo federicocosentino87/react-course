@@ -24,18 +24,24 @@ class App extends React.Component {
         console.log('My component was just updated - rerendered');
     }
     
-    co
-    render() {
-        
+    renderContent() {
         if (this.state.lat && !this.state.errorMessage) {
-           return  <SeasonDisplay lat={this.state.lat}/>;
-        }
+            return  <SeasonDisplay lat={this.state.lat}/>;
+         }
+ 
+         if (!this.state.lat && this.state.errorMessage) {
+             return  <div>Error: {this.state.errorMessage}</div>;
+         }
+         
+         return  <Spinner message="Please accept location request"/>;
+    }
 
-        if (!this.state.lat && this.state.errorMessage) {
-            return  <div>Error: {this.state.errorMessage}</div>;
-        }
-        
-        return  <Spinner />;
+    render() {
+        return (
+            <div className="border red">
+                {this.renderContent()}
+            </div>
+        );
     }
 }
 
